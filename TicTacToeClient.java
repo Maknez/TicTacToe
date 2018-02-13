@@ -26,27 +26,26 @@ public class TicTacToeClient {
     private     PrintWriter out;
 
     private     static      boolean portIsCorrect = false;
-    private     boolean connectionIsCorrect = false;
 
     private     static Scanner scanner = new Scanner(System.in);
 
     static class Square extends JPanel {
         JLabel label = new JLabel((Icon)null);
 
-        public Square() {
+        Square() {
             setBackground(Color.white);
             add(label);
         }
 
-        public void setIcon(Icon icon) {
+        void setIcon(Icon icon) {
             label.setIcon(icon);
         }
     }
 
     // Constructs the client by connecting to a server, laying out the GUI and registering GUI listeners.
-    public TicTacToeClient(String serverAddress) throws Exception {
-
+    private TicTacToeClient(String serverAddress) throws Exception {
         // Setup networking
+        boolean connectionIsCorrect = false;
 
         while(!connectionIsCorrect) {
             try {
@@ -58,8 +57,7 @@ public class TicTacToeClient {
                 setPORT();
             }
         }
-        in = new BufferedReader(new InputStreamReader(
-            socket.getInputStream()));
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
         // Layout GUI
@@ -161,7 +159,7 @@ public class TicTacToeClient {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         try{
             while (true) {

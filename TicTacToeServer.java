@@ -23,7 +23,7 @@ public class TicTacToeServer {
                 System.out.println(PORTlist[i]);
             }
         }
-        System.out.println("");
+        System.out.println();
     }
 
     private static void setPORT() {
@@ -65,7 +65,6 @@ public class TicTacToeServer {
     }
 
     private static ServerSocket setServerSocket() {
-
         try {
             listener = new ServerSocket(PORTlist[listElements-1]);
         } catch (IOException e) {
@@ -76,7 +75,6 @@ public class TicTacToeServer {
     }
 
     private static ServerSocket createNewRoom (){
-
         setPORT();
         listener = setServerSocket();
         System.out.println("Tic Tac Toe Server is Running on PORT: " +PORTlist[listElements-1]);
