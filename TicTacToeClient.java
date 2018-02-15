@@ -77,6 +77,10 @@ public class TicTacToeClient {
         }
         frame.getContentPane().add(boardPanel, "Center");
     }
+
+    //tutki
+    //http://cs.lmu.edu/~ray/notes/javanetexamples/#tictactoe
+    //https://www.youtube.com/watch?v=aIaFFPatJjY&t=2440s
    //* The main thread of the client will listen for messages from the server.  
    //The first message will be a "WELCOME" message in which we receive our mark.
    //Then we go into a loop listening for:

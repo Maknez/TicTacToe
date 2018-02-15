@@ -20,7 +20,7 @@ public class TicTacToeServer {
     private     static      Scanner scanner = new Scanner(System.in);
 
     private static void displayPORTs() {
-        System.out.println("\nBusy PORTs: ");
+        System.out.println("\nActive PORTs: ");
         for (int i = 0; i < listElements; i++) {
             if (PORTlist[i] != 0){
                 System.out.println((i + 1) + ". Room on PORT: " + PORTlist[i] + "  -> " + playerNumber[i] + "/2 players.");
@@ -51,7 +51,6 @@ public class TicTacToeServer {
                 validatePORTlist(portAsInt);
                 if(portIsNotBusy) {
                     listElements = 0;
-                    roomNumber = 0;
                     for (int i = 0; i < 255; i++) {
                         if (PORTlist[i] == 0) {
                             PORTlist[i] = portAsInt;
@@ -61,7 +60,7 @@ public class TicTacToeServer {
                                 }
                             }
                             playerNumber[i] = 0;
-                            roomNumber=i;
+                            roomNumber = i;
                             break;
                         }
                     }
