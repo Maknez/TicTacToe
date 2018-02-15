@@ -13,6 +13,7 @@ class Game {
     //current player
     Player currentPlayer;
     private boolean connectionError = false;
+
     // winner
 
     private boolean hasWinner() {
@@ -53,11 +54,14 @@ class Game {
         Socket socket;
         BufferedReader input;
         PrintWriter output;
+        int PORT;
 
         // thread handler to initialize stream fields
-        Player(Socket socket, char mark) {
+        Player(Socket socket, char mark, int PORT) {
             this.socket = socket;
             this.mark = mark;
+            this.PORT = PORT;
+
             try {
                 input = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
@@ -76,8 +80,8 @@ class Game {
         //Handles the otherPlayerMoved message.
         private void otherPlayerMoved(int location) {
             output.println("OPPONENT_MOVED " + location);
-            output.println(
-                    hasWinner() ? "DEFEAT" : boardFilledUp() ? "TIE" : "");
+            output.println(hasWinner() ? "DEFEAT" : boardFilledUp() ? "TIE" : "");
+
         }
 
         public void run() {
@@ -98,12 +102,14 @@ class Game {
                         if (legalMove(location, this)) {
                             output.println("VALID_MOVE");
                             output.println(hasWinner() ? "VICTORY" : boardFilledUp() ? "TIE" : "");
+
                         } else {
                             if(!connectionError) {
                                 output.println("MESSAGE ...");
                             }
                             else {
                                 output.println("ERROR opponent disconnected!");
+
                             }
                         }
                     } else if (command.startsWith("QUIT")) {
@@ -112,6 +118,7 @@ class Game {
                 }
             } catch (IOException e) {
                 connectionError = true;
+
                 System.out.println("\n!!!Connection with player: " + mark + " on PORT: " + socket.getLocalPort() + " LOST!!!");
                 System.out.print("\nDo you want to create new room? y/n: ");
 

@@ -142,7 +142,7 @@ public class TicTacToeClient {
 
         String portAsString = "";
         while(!portIsCorrect) {
-            System.out.print("\nPress the port number (f. e. 1234): ");
+            System.out.print("\nPress the port number (1000-9999): ");
             portAsString = scanner.nextLine();
             validatePORTValue(portAsString);
         }
@@ -151,7 +151,7 @@ public class TicTacToeClient {
     }
 
     private static void validatePORTValue(String portAsString) {
-        if (!Pattern.matches("[1-9][0-9]+", portAsString)) {
+        if (!Pattern.matches("[1-9][0-9][0-9][0-9]", portAsString)) {
             portIsCorrect = false;
             System.out.println("\nIncorrect PORT value!");
         } else {
@@ -164,13 +164,14 @@ public class TicTacToeClient {
         try{
             while (true) {
                 setPORT();
-                String serverAddress = "localhost";
+                String serverAddress = TicTacToeServerConfig.getHostName();
                 TicTacToeClient client = new TicTacToeClient(serverAddress);
                 client.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 client.frame.setSize(240, 240);
                 client.frame.setVisible(true);
                 client.frame.setResizable(false);
                 client.play();
+
                 if (!client.wantsToPlayAgain()) {
                     break;
                 }
