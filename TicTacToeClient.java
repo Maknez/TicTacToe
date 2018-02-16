@@ -14,6 +14,7 @@ public class TicTacToeClient {
 
     private     JFrame frame = new JFrame("Tic Tac Toe");
     private     JLabel messageLabel = new JLabel("");
+
     private     ImageIcon icon;
     private     ImageIcon opponentIcon;
 
@@ -42,9 +43,8 @@ public class TicTacToeClient {
         }
     }
 
-    // Constructs the client by connecting to a server, laying out the GUI and registering GUI listeners.
     private TicTacToeClient(String serverAddress) throws Exception {
-        // Setup networking
+
         boolean connectionIsCorrect = false;
 
         while(!connectionIsCorrect) {
@@ -60,7 +60,6 @@ public class TicTacToeClient {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
-        // Layout GUI
         messageLabel.setBackground(Color.lightGray);
         frame.getContentPane().add(messageLabel, "South");
         JPanel boardPanel = new JPanel();
@@ -78,23 +77,14 @@ public class TicTacToeClient {
         frame.getContentPane().add(boardPanel, "Center");
     }
 
-    //tutki
-    //http://cs.lmu.edu/~ray/notes/javanetexamples/#tictactoe
-    //https://www.youtube.com/watch?v=aIaFFPatJjY&t=2440s
-   //* The main thread of the client will listen for messages from the server.  
-   //The first message will be a "WELCOME" message in which we receive our mark.
-   //Then we go into a loop listening for:
-   //--> "VALID_MOVE", --> "OPPONENT_MOVED", --> "VICTORY", --> "DEFEAT", --> "TIE", --> "OPPONENT_QUIT, --> "MESSAGE" messages, and handling each message appropriately.
-   //The "VICTORY","DEFEAT" and "TIE" ask the user whether or not to play another game. 
-   //If the answer is no, the loop is exited and the server is sent a "QUIT" message.  If an OPPONENT_QUIT message is recevied then the loop will exit and the server will be sent a "QUIT" message also.
    private void play() throws Exception {
         String response;
         try {
             response = in.readLine();
             if (response.startsWith("WELCOME")) {
                 char mark = response.charAt(8);
-                icon = new ImageIcon(mark == 'X' ? "C:/Users/maknez/Desktop/TicTacToe/src/x.gif" : "C:/Users/maknez/Desktop/TicTacToe/src/o.gif");
-                opponentIcon  = new ImageIcon(mark == 'X' ? "C:/Users/maknez/Desktop/TicTacToe/src/o1.gif" : "C:/Users/maknez/Desktop/TicTacToe/src/x1.gif");
+                icon = new ImageIcon(mark == 'X' ? "./src/x.gif" : "./src/o.gif");
+                opponentIcon  = new ImageIcon(mark == 'X' ? "./src/o1.gif" : "./src/x1.gif");
                 frame.setTitle("Tic Tac Toe - Player " + mark);
 
             }

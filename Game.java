@@ -14,8 +14,6 @@ class Game {
     Player currentPlayer;
     private boolean connectionError = false;
 
-    // winner
-
     private boolean hasWinner() {
         return
             (board[0] != null && board[0] == board[1] && board[0] == board[2])
@@ -27,7 +25,7 @@ class Game {
             ||(board[0] != null && board[0] == board[4] && board[0] == board[8])
             ||(board[2] != null && board[2] == board[4] && board[2] == board[6]);
     }
-    // no empty squares
+
     private boolean boardFilledUp() {
         for (Player aBoard : board) {
             if (aBoard == null) {
@@ -36,7 +34,7 @@ class Game {
         }
         return true;
     }
-    // thread when player tries a move
+
     private synchronized boolean legalMove(int location, Player player) {
         if (player == currentPlayer && board[location] == null) {
             board[location] = currentPlayer;
@@ -56,7 +54,7 @@ class Game {
         PrintWriter output;
         int PORT;
 
-        // thread handler to initialize stream fields
+
         Player(Socket socket, char mark, int PORT) {
             this.socket = socket;
             this.mark = mark;
@@ -73,11 +71,11 @@ class Game {
                 System.out.println("\n!!!Connection with player: " + mark + " on PORT: " + socket.getLocalPort() + " LOST!!!");
             }
         }
-        //Accepts notification of who the opponent is.
+
         public void setOpponent(Player opponent) {
             this.opponent = opponent;
         }
-        //Handles the otherPlayerMoved message.
+
         private void otherPlayerMoved(int location) {
             output.println("OPPONENT_MOVED " + location);
             output.println(hasWinner() ? "DEFEAT" : boardFilledUp() ? "TIE" : "");
@@ -94,7 +92,7 @@ class Game {
                     output.println("MESSAGE Your move");
                 }
 
-                // Repeatedly get commands from the client and process them.
+
                 while (true) {
                     String command = input.readLine();
                     if (command.startsWith("MOVE")) {

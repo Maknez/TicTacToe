@@ -142,6 +142,7 @@ public class TicTacToeServer {
             }
         }
     }
+
     public static void main(String[] args) throws Exception {
 
         ServerSocket listener;
@@ -176,5 +177,3 @@ public class TicTacToeServer {
         }
     }
 }
-
-
